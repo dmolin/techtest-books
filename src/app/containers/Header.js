@@ -4,10 +4,7 @@ import {connect} from 'react-redux'
 import Header from '../components/Header'
 
 function mapStateToProps(state) {
-  console.log("returning ", state.books)
-  return {
-    category: state.books.category
-  }
+  return _.omit(state.books.result, ['books'])
 }
 
 function mapDispatchToProps(dispatch) {

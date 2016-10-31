@@ -9,8 +9,11 @@ const api = axios.create({
 })
 
 const booksApi = {
-  findBooksByCategory: (category, pageno=0) => {
-    return api.get(`/category/${category}?pageno=${pageno}`)
+  findBooksByCategory: (category, pageno=0, query={}) => {
+    let queryString = Object.keys(query).map(k=>("" + k + "=" + query[k])).join('&')
+    queryString = queryString.length ? `?${queryString}` : queryString
+
+    return api.get(`/category/${category}/${pageno}${queryString}`)
   }
 }
 

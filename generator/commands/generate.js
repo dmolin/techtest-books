@@ -115,7 +115,6 @@ function generateBooksAndFiles(number) {
   const ignored = [...Array(number).keys()].map(i => {
     const gender = genGender()
     const generated = {
-      id: i,
       title: genTitle(),
       cover: genBookCover(),
       author: {

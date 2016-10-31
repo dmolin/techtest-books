@@ -27,7 +27,7 @@ export default class Header extends React.Component {
   }
 
 	render() {
-    const {category, theme} = this.props
+    const {category, totalItems, theme} = this.props
 		const classes = "header-content " + (theme ? "theme-" + theme : "")
     
 		return (
@@ -56,8 +56,8 @@ export default class Header extends React.Component {
               <div className="column">
                 <h4 className="ui header">Author Gender</h4>
                 <div onClick={this.onLink} className="ui link list">
-                  <a to="/male" className="item">Male Authors</a>
-                  <a to="/female" className="item">Female Authors</a>
+                  <a to="/all?gender=male" className="item">Male Authors</a>
+                  <a to="/all?gender=female" className="item">Female Authors</a>
                 </div>
               </div>
               <div className="column">
@@ -71,7 +71,7 @@ export default class Header extends React.Component {
           </div>
 
           <div className="books-header ui vertically padded grid">
-            <h2 className=""><span className="capitalized">{category}</span> Books</h2>
+            <h2 className=""><span className="capitalized">{category}</span> Books <span className="ui smaller">({totalItems} books)</span></h2>
           </div>
         </div>
 			</div>

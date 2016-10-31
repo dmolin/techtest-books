@@ -9,15 +9,18 @@ import search from '../actions/books/thunk_search'
 
 class SearchBooksPage extends React.Component {
   componentDidMount() {
-    this.props.search(this.props.params.category||'all', this.props.params.pageno||0)
+    this.props.search(this.props.params.category||'all', this.props.params.pageno||0, this.props.location.query)
   }
 
   componentWillReceiveProps(next) {
     const categoryChanged = next.params.category !== this.props.params.category
     const pageChanged = next.params.pageno !== this.props.params.pageno
+    const queryChanged = next.location.search !== this.props.location.search
 
-    if (categoryChanged || pageChanged) {
-      this.props.search(next.params.category, next.params.pageno)
+    console.log("PROPS changed", next)
+    if (categoryChanged || pageChanged || queryChanged) {
+      console.log("===> trigger new search")
+      this.props.search(next.params.category, next.params.pageno, next.location.query)
     }
   }
 
@@ -26,9 +29,6 @@ class SearchBooksPage extends React.Component {
 
     return (
       <div className="ui container secondary menu">
-        <span className="item header">
-        {result.totalItems} books found in this category
-        </span>
         <Pager className="right item"/>
       </div>
     ) 
