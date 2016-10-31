@@ -1,0 +1,23 @@
+.rating {
+  display: inline-block;
+  text-align: center;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating.rating-1 > span:nth-child(-n+1):before, 
+.rating.rating-2 > span:nth-child(-n+2):before,
+.rating.rating-3 > span:nth-child(-n+3):before,
+.rating.rating-4 > span:nth-child(-n+4):before,
+.rating.rating-5 > span:nth-child(-n+5):before {
+	content: "\2605";
+	position: absolute;
+	left: 0;
+	color: gold;
+	width: 100%;
+}
+

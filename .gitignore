@@ -1,0 +1,10 @@
+public/build/
+node_modules/
+.eslintcache
+coverage
+.nyc_output
+.DS_Store
+*.bundle.js
+npm-debug.log
+dist/
+generator/db

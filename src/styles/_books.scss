@@ -1,0 +1,49 @@
+.books--noresult {
+  margin-top: 1em;
+}
+
+.books--header {
+  background: #232f3e;
+  color: whitesmoke;
+  padding: 1em;
+}
+
+.search-books {
+  position: relative;
+}
+
+.book:hover {
+  box-shadow: 0px 0px 6px rgba(0,0,0, 0.75) !important;
+  cursor: pointer;
+}
+
+.book--author-pic {
+  width: 44px;
+  height: 44px;
+}
+
+.book--cover {
+  width: 100px;
+  height: 150px;
+  max-width: 40%;
+}
+
+.book--data {
+  max-width: 55%;
+}
+
+.book--desc {
+  margin-top: 1em;
+}
+
+.book--special {
+  /* semantic ui presets need to be overridden with !important :( */
+  position: absolute !important;
+  left: -1rem !important;
+  bottom: 1.3rem !important;
+}
+
+.book--popular {
+  color: red !important;
+  font-size: 0.75em !important;
+}
