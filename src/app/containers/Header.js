@@ -2,9 +2,12 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import Header from '../components/Header'
+import WithRouter from './WithRouter'
 
 function mapStateToProps(state) {
-  return _.omit(state.books.result, ['books'])
+	return Object.assign({
+    location: state.routing.locationBeforeTransitions,
+	}, _.omit(state.books.result, ['books']))
 }
 
 function mapDispatchToProps(dispatch) {
@@ -12,4 +15,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(WithRouter(Header))
