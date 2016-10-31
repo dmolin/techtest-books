@@ -31,34 +31,17 @@ export default (app) => {
   app.get('/api/category/:category', (req, res) => {
 
     Fiber(() => {
-    const category = req.params.category || 'all'
-    const pageno = parseInt(req.query.pageno,10) || 0
-    const start = pageno * pageSize,
-          end = start + pageSize
+      const category = req.params.category || 'all'
+      const pageno = parseInt(req.query.pageno,10) || 0
+      const start = pageno * pageSize,
+            end = start + pageSize
 
-    const query = category !== 'all' ? {category} : {}
+      const query = category !== 'all' ? {category} : {}
 
-    const total = countCollection(ns.collections.Books, query)
-    const books = findCollection(ns.collections.Books, query, start, pageSize)
-    if (books.error) {
-      res.json({error: true, reason: books.error})
-      return
-    }
-
-    res.json({
-      category: req.params.category,
-      page: pageno,
-      pageSize: pageSize,
-      found: books.docs.length,
-      totalItems: total,
-      totalPages: Math.ceil(total / pageSize),
-      books:books.docs
-    })
-
-    /*
-    const books = ns.collections.Books.find(query, (err, result) => {
-      if (err) {
-        res.json({error:true, reason:err})
+      const total = countCollection(ns.collections.Books, query)
+      const books = findCollection(ns.collections.Books, query, start, pageSize)
+      if (books.error) {
+        res.json({error: true, reason: books.error})
         return
       }
 
@@ -66,13 +49,12 @@ export default (app) => {
         category: req.params.category,
         page: pageno,
         pageSize: pageSize,
-        found: books.length,
+        found: books.docs.length,
         totalItems: total,
         totalPages: Math.ceil(total / pageSize),
-        books:books
+        books:books.docs
       })
-    }).skip(start).limit(pageSize)
-    */
+
     }).run()
   })
 }

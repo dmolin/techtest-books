@@ -8,7 +8,6 @@ const Engine = tingodb()
 const modes = (fs.constants || fs)
 const genders = ["male", "female"]
 const categories = [
-  //"biography", "drama", "fantasy", "health", "history", "horror", "mistery", "romance", "scifi", "travel"
   "fantasy", "health", "history", "horror", "mistery", "romance", "scifi", "travel"
 ]
 
@@ -90,11 +89,13 @@ function writeBuffer(buffer, coll, db) {
 
 function countCollection(coll) {
   var fiber = Fiber.current
+  let total = 0
   coll.count((err,count) => {
-    console.log("count", count)
-    fiber.run(count)
+    total = count
+    fiber.run()
   })
   Fiber.yield()
+  return total
 }
 
 function generateBooksAndFiles(number) {
@@ -143,7 +144,6 @@ function generateBooksAndFiles(number) {
 
   //read back all records
   console.log("Total records", countCollection(Books))
-
 }
 
 export default generateBooksAndFiles
