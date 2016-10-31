@@ -8,7 +8,7 @@ class Pager extends React.Component {
   }
 
   onPageClick(evt) {
-    const {category, page, pageSize, found, totalItems, totalPages} = this.props
+    const {location, category, page, pageSize, found, totalItems, totalPages, router} = this.props
     const choiceMatch = evt.target.className.match(/pager--([^\s]+)/) 
     const choice = choiceMatch ? choiceMatch[1] || '' : 0
     let requested = 0
@@ -26,9 +26,15 @@ class Pager extends React.Component {
       case 'last':
         requested = totalPages - 1
         break;
+      default:
+        //no-op. we clicked somewhere else
+        return
     }
 
-    this.props.setPagerPage(requested)
+    router.push({
+      pathname: `/${category}/${requested}`,
+      query: location.query 
+    })
   }
 
   renderPrev() {

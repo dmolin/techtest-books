@@ -56,8 +56,8 @@ export default class Header extends React.Component {
               <div className="column">
                 <h4 className="ui header">Author Gender</h4>
                 <div onClick={this.onLink} className="ui link list">
-                  <a to="/all?gender=male" className="item">Male Authors</a>
-                  <a to="/all?gender=female" className="item">Female Authors</a>
+                  <a to="/all?author.gender=male" className="item">Male Authors</a>
+                  <a to="/all?author.gender=female" className="item">Female Authors</a>
                 </div>
               </div>
               <div className="column">

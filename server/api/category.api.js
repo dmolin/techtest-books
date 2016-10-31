@@ -1,7 +1,6 @@
 import ns from '../namespace'
 import Fiber from 'fibers'
 
-
 function countCollection(coll, query = {}) {
   let fiber = Fiber.current
   let total = 0
@@ -27,42 +26,53 @@ function findCollection(coll, query, start = 0, limit = 10000) {
 
 function findBooks(req, res) {
   const pageSize = 100
+  const category = req.params.category || 'all'
+  let pageno = parseInt(req.params.pageno,10) || 0
 
-  Fiber(() => {
-    const category = req.params.category || 'all'
-    let pageno = parseInt(req.params.pageno,10) || 0
+  // for the sake of simplicity, all the query params are used as "AND" where clauses
+  const whereClauses = Object.assign({}, req.query, (category !== 'all' ? {category} : {}))
 
-    const query = category !== 'all' ? {category} : {}
+  console.log("whereClauses", whereClauses)
 
-    const total = countCollection(ns.collections.Books, query)
-    const totalPages = Math.ceil(total / pageSize)
+  //const query = category !== 'all' ? {category} : {}
 
-    //check that pageno is within bound. if not, change it
-    pageno = Math.min(pageno, totalPages-1)
+  const total = countCollection(ns.collections.Books, whereClauses)
+  const totalPages = Math.ceil(total / pageSize)
 
-    const start = pageno * pageSize,
-          end = start + pageSize
+  //check that pageno is within bound. if not, change it
+  pageno = Math.min(pageno, totalPages-1)
 
-    const books = findCollection(ns.collections.Books, query, start, pageSize)
-    if (books.error) {
-      res.json({error: true, reason: books.error})
-      return
-    }
+  const start = pageno * pageSize,
+        end = start + pageSize
 
-    res.json({
-      category: req.params.category,
-      page: pageno,
-      pageSize: pageSize,
-      found: books.docs.length,
-      totalItems: total,
-      totalPages: Math.ceil(total / pageSize),
-      books:books.docs
-    })
+  const books = findCollection(ns.collections.Books, whereClauses, start, pageSize)
+  if (books.error) {
+    res.json({error: true, reason: books.error})
+    return
+  }
 
-  }).run()
+  res.json({
+    category: req.params.category,
+    page: pageno,
+    pageSize: pageSize,
+    found: books.docs.length,
+    totalItems: total,
+    totalPages: Math.ceil(total / pageSize),
+    books:books.docs
+  })
+}
+
+function runInFiber(handler) {
+  return ((req, res) => {
+    Fiber(() => {
+      handler(req, res)
+    }).run()
+  })
 }
 
 export default (app) => {
-  app.get('/api/category/:category', findBooks)
-  app.get('/api/category/:category/:pageno', findBooks)
+  const findBooksFiberized = runInFiber(findBooks)
+
+  app.get('/api/category/:category', findBooksFiberized)
+  app.get('/api/category/:category/:pageno', findBooksFiberized)
 }
