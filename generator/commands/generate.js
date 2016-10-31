@@ -101,7 +101,10 @@ function generateBooksAndFiles(number) {
   const serverPath = path.join(__dirname, '../../server/db')
   const db = new Engine.Db(serverPath, {})
 
-  fs.unlinkSync(path.join(__dirname, serverPath + '/books'))
+  try {
+    fs.unlinkSync(path.join(__dirname, serverPath + '/books'))
+  } catch(idontcareifitfails){}
+
   const Books = db.collection('books')
 
 	console.log("Generating " + number + " books")
