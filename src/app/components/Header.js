@@ -7,6 +7,7 @@ export default class Header extends React.Component {
 		super(...args)
 
     this.onLink = this.onLink.bind(this)
+    this.onFilterSelection = this.onFilterSelection.bind(this)
 	}
 
 	componentDidMount() {
@@ -18,12 +19,31 @@ export default class Header extends React.Component {
 			popup: $('.ui.popup')
 		})
 
+    $('.dropdown', this.refs.element).dropdown()
 	}
 
   onLink(evt) {
     evt.preventDefault()
     $(this.refs.browseItem).popup('toggle')
     browserHistory.push($(evt.target).attr('to'))
+  }
+
+  onFilterSelection(evt) {
+    evt.preventDefault()
+     
+  }
+
+  renderFilters() {
+    return (
+      <form className="ui form">
+        <select className="ui dropdown" onChange={this.onFilterSelection}>
+          <option value="">Filter content</option>
+          <option value="nofilter">No filter</option>
+          <option value="author.gender=male">Only male authors</option>
+          <option value="author.gender=female">Only female authors</option>
+        </select> 
+      </form>
+    )
   }
 
 	render() {
@@ -38,6 +58,7 @@ export default class Header extends React.Component {
               Browse Books
               <i className="dropdown icon"></i>
             </a>
+
           </div>
           <div className="ui fluid popup bottom left transition hidden">
             <div className="ui four column relaxed equal height divided grid">
@@ -70,8 +91,11 @@ export default class Header extends React.Component {
             </div>
           </div>
 
-          <div className="books-header ui vertically padded grid">
-            <h2 className=""><span className="capitalized">{category}</span> Books <span className="ui smaller">({totalItems} books)</span></h2>
+          <div className="books-header ui vertically padded secondary menu">
+            <h2 className="books-header--title"><span className="capitalized">{category}</span> Books <span className="ui smaller">({totalItems} books)</span></h2>
+            <div className="right item">
+              {this.renderFilters()}
+            </div> 
           </div>
         </div>
 			</div>

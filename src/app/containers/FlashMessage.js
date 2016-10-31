@@ -1,11 +1,12 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import Header from '../components/Header'
-import WithRouter from './WithRouter'
+import FlashMessage from '../components/FlashMessage'
 
 function mapStateToProps(state) {
-  return _.omit(state.books.result, ['books'])
+  return {
+    content: state.flashMessage.content
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -13,4 +14,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithRouter(Header))
+export default connect(mapStateToProps, mapDispatchToProps)(FlashMessage)

@@ -1,6 +1,15 @@
 import ns from '../namespace'
 import Fiber from 'fibers'
 
+function sanitizeParams(params) {
+  const allowedValues = ['category', 'author.gender', 'author.name']
+  Object.keys(params).forEach(k => {
+    if (allowedValues.indexOf(k) === -1) {
+      throw new Error('A not allowed query parameter was provided [' + k + ']')
+    }
+  })
+}
+
 function countCollection(coll, query = {}) {
   let fiber = Fiber.current
   let total = 0
@@ -29,12 +38,10 @@ function findBooks(req, res) {
   const category = req.params.category || 'all'
   let pageno = parseInt(req.params.pageno,10) || 0
 
+  sanitizeParams(req.query)
+
   // for the sake of simplicity, all the query params are used as "AND" where clauses
   const whereClauses = Object.assign({}, req.query, (category !== 'all' ? {category} : {}))
-
-  console.log("whereClauses", whereClauses)
-
-  //const query = category !== 'all' ? {category} : {}
 
   const total = countCollection(ns.collections.Books, whereClauses)
   const totalPages = Math.ceil(total / pageSize)
@@ -65,7 +72,11 @@ function findBooks(req, res) {
 function runInFiber(handler) {
   return ((req, res) => {
     Fiber(() => {
-      handler(req, res)
+      try {
+        handler(req, res)
+      } catch (err) {
+        res.json({error:true, reason: err.message})
+      }
     }).run()
   })
 }
