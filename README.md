@@ -1,12 +1,6 @@
-AOTC: Replicating part of the Just-Eat Web experience with React+Redux
+TechTest - A simple Books browsing/querying with 1 Million records
 ==========================================================================
 
-This project is a demo project part of the **Attack of the Clones** series (AOTC), where I show how to replicate part of a few widely used (web/mobile)apps on the market using specific technologies (React and Redux in this case)
-
-The project is setup with Webpack and a development server with Hotreload and feature a typical scenario, with a page allowing to search for data.
-
-Still a work-in-progress.
-The current codebase implement a super basic postcode lookup for restaurants, using the Just-Eat public API endpoints.
 
 ### Technologies Used ###
 
@@ -14,11 +8,9 @@ The current codebase implement a super basic postcode lookup for restaurants, us
 - Redux
 - BabelJS (ES2015 transpiler)
 - Webpack
+- Express (I HAD to have a backend)
+- TingoDB (embedded NoSQL datastore)
 
 ### Screenshots ###
 
-Postcode lookup screen.
-![ScreenShot](/README/je-postcode.png?raw=true)
-
-Restaurants result screen.
-![ScreenShot](/README/je-restaurants.png?raw=true)
+(yet to come)
