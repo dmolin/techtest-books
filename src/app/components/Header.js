@@ -3,24 +3,28 @@ import {browserHistory, Link} from 'react-router'
 
 export default class Header extends React.Component {
 
-	constructor(...args) {
-		super(...args)
+  constructor(...args) {
+    super(...args)
 
     this.onLink = this.onLink.bind(this)
     this.onFilterSelection = this.onFilterSelection.bind(this)
-	}
+  }
 
-	componentDidMount() {
-		$(this.refs.browseItem).popup({
-			inline: true,
-			hoverable: true,
-			position: 'bottom left',
-			delay: { show: 200, hide: 400 },
-			popup: $('.ui.popup')
-		})
+  componentDidMount() {
+    $(this.refs.browseItem).popup({
+      inline: true,
+      hoverable: true,
+      position: 'bottom left',
+      delay: { show: 200, hide: 400 },
+      popup: $('.ui.popup')
+    })
 
     $('.dropdown', this.refs.element).dropdown()
-	}
+  }
+
+  componentDidUpdate() {
+    $('.dropdown', this.refs.element).dropdown()
+  }
 
   onLink(evt) {
     evt.preventDefault()
@@ -30,28 +34,50 @@ export default class Header extends React.Component {
 
   onFilterSelection(evt) {
     evt.preventDefault()
-     
+    //turn selection into key-value pair
+    const choice = $(evt.target).val().split('=')
+    const value = {}
+    let newQuery = Object.assign({}, this.props.location.query)
+
+    if (!choice || choice.length < 2) {
+      //reset filter
+      newQuery = _.omit(newQuery, 'author.gender')
+    } else {
+      value[choice[0]] = choice[1]
+      newQuery = Object.assign({}, newQuery, value)
+    }
+
+    this.props.router.push({
+      pathname: this.props.location.pathname,
+      query: newQuery
+    })
   }
 
   renderFilters() {
+    const {location} = this.props
+    let selection = location.query['author.gender'] || ''
+
+    const value = `author.gender=${selection}`
+    console.log("selection", value)
+
     return (
       <form className="ui form">
-        <select className="ui dropdown" onChange={this.onFilterSelection}>
+        <select className="ui dropdown" onChange={this.onFilterSelection} value={value}>
           <option value="">Filter content</option>
-          <option value="nofilter">No filter</option>
-          <option value="author.gender=male">Only male authors</option>
-          <option value="author.gender=female">Only female authors</option>
+          <option value="nofilter" >No filter</option>
+          <option value="author.gender=male" >Only male authors</option>
+          <option value="author.gender=female" >Only female authors</option>
         </select> 
       </form>
     )
   }
 
-	render() {
+  render() {
     const {category, totalItems, theme} = this.props
-		const classes = "header-content " + (theme ? "theme-" + theme : "")
+    const classes = "header-content " + (theme ? "theme-" + theme : "")
     
-		return (
-			<div ref="element" className="books--header">
+    return (
+      <div ref="element" className="books--header">
         <div className="books--header-bg ui container">
           <div className="ui menu">
             <a className="browse item" ref="browseItem">
@@ -98,13 +124,13 @@ export default class Header extends React.Component {
             </div> 
           </div>
         </div>
-			</div>
-		)
-	}
+      </div>
+    )
+  }
 
 }
 
 Header.propTypes = {
-	category: React.PropTypes.string
+  category: React.PropTypes.string
 }
 

@@ -5,7 +5,9 @@ import Header from '../components/Header'
 import WithRouter from './WithRouter'
 
 function mapStateToProps(state) {
-  return _.omit(state.books.result, ['books'])
+	return Object.assign({
+    location: state.routing.locationBeforeTransitions,
+	}, _.omit(state.books.result, ['books']))
 }
 
 function mapDispatchToProps(dispatch) {

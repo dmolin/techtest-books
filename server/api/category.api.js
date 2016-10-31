@@ -2,7 +2,7 @@ import ns from '../namespace'
 import Fiber from 'fibers'
 
 function sanitizeParams(params) {
-  const allowedValues = ['category', 'author.gender', 'author.name']
+  const allowedValues = ['category', 'author.gender', 'author.name', 'nofilter']
   Object.keys(params).forEach(k => {
     if (allowedValues.indexOf(k) === -1) {
       throw new Error('A not allowed query parameter was provided [' + k + ']')

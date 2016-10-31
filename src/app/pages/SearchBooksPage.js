@@ -17,9 +17,7 @@ class SearchBooksPage extends React.Component {
     const pageChanged = next.params.pageno !== this.props.params.pageno
     const queryChanged = next.location.search !== this.props.location.search
 
-    console.log("PROPS changed", next)
     if (categoryChanged || pageChanged || queryChanged) {
-      console.log("===> trigger new search")
       this.props.search(next.params.category, next.params.pageno, next.location.query)
     }
   }
