@@ -98,9 +98,10 @@ function countCollection(coll) {
 }
 
 function generateBooksAndFiles(number) {
-  const db = new Engine.Db(path.join(__dirname, '../db'), {})
+  const serverPath = path.join(__dirname, '../../server/db')
+  const db = new Engine.Db(serverPath, {})
 
-  fs.unlinkSync(path.join(__dirname, '../db/books'))
+  fs.unlinkSync(path.join(__dirname, serverPath + '/books'))
   const Books = db.collection('books')
 
 	console.log("Generating " + number + " books")
