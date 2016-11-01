@@ -1,4 +1,55 @@
+.books-header {
+  flex-direction: column;
+}
+
 .books-header--title {
   margin: 0 !important;
   padding: 0.7em;
+  text-align: center;
+}
+
+.books-navigation--section {
+  width: 100% !important;
+}
+
+.ui.menu .right.item.books-header--filters {
+  margin-left: 0 !important;
+}
+
+.books-search__mobile input,
+.books-search input {
+  line-height: 1.4rem !important;
+}
+
+.books-search {
+  display: none !important;
+}
+
+@media screen and (min-width: 480px) {
+  .books-search {
+    display: block !important;
+  }
+
+  .books-search__mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .books-header {
+    flex-direction: row;
+  }
+
+  .books-header--title {
+    text-align: left;
+  }
+
+  .ui.menu .right.item.books-header--filters {
+    margin-left: auto !important;
+  }
+
+  .books-navigation--section {
+    width: 25% !important;
+  }
+
 }
