@@ -6,16 +6,15 @@ export const initialState = {
   loading: false,
   category: 'all',
   pageno: 0,
-  searchTerm: '',
   result: {}
 }
 
 export default function(state = initialState, action) {
-  const {type, result, category, pageno, searchTerm} = action
+  const {type, result, category, pageno} = action
   
   switch(type) {
     case ACTION_BOOKS_SEARCH_STARTED:
-      return Object.assign({}, state, {category, pageno, searchTerm, loading:true})
+      return Object.assign({}, state, {category, pageno, loading:true})
       break
 
     case ACTION_BOOKS_SEARCH_STOPPED:

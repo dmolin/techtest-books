@@ -5,12 +5,12 @@
  * to this:
  * "?title=test"
  **/
-export function buildQueryString(query) {
+export function buildQueryString(query = {}) {
   let qs = Object.keys(query).map(k=>("" + k + "=" + query[k])).join('&')
   return qs.length ? `?${qs}` : qs
 }
 
-export function pruneEmptyParams(query) {
+export function pruneEmptyParams(query={}) {
   return Object.keys(query).reduce((acc,t) => {
     if (("" + query[t]).length > 0) {
       acc[t] = query[t]

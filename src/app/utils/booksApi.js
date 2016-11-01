@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {buildQueryString, pruneEmptyParams} from './query'
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: '/api',
   timeout: 10000,
   headers: {
