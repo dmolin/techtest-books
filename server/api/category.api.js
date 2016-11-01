@@ -6,7 +6,7 @@ import Fiber from 'fibers'
  * This is necessary by design, since we merely map query parameters to NoSQL where clauses :p
  **/
 function sanitizeParams(params) {
-  const allowedParams = ['category', 'authorGender', 'author.name', 'nofilter', 'title']
+  const allowedParams = ['category', 'author.gender', 'author.name', 'nofilter', 'title']
   /*
   Object.keys(params).forEach(k => {
     if (allowedParams.indexOf(k) === -1) {
