@@ -1,5 +1,8 @@
 import React from 'react'
 
+/*
+ * A simple messaging system.
+ */
 class FlashMessage extends React.Component {
 	constructor(...args) {
 		super(...args)

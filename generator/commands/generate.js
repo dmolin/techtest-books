@@ -79,7 +79,6 @@ function denodeify(cb) {
 }
 
 function writeBuffer(buffer, coll, db) {
-  //return denodeify(coll.insert,bind(call))(buffer)
   var fiber = Fiber.current
   coll.insert(buffer, (err, doc) => {
     fiber.run()
@@ -140,9 +139,6 @@ function generateBooksAndFiles(number) {
     writeBuffer(buffer, Books, db)
     buffer = []
   }
-
-  //read back all records
-  console.log("Total records", countCollection(Books))
 }
 
 export default generateBooksAndFiles

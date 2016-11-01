@@ -49,10 +49,12 @@ const middleware = webpackMiddleware(compiler, {
 app.use(middleware);
 app.use(webpackHotMiddleware(compiler));
 
+// Dynamically initialize all API handlers (they are located under /api/ folder
 _.each(_.values(apiIndex), (mod) => {
   mod(app, app.locals.appConfig)
 })
 
+// default handler
 app.get('*', function response(req, res) {
   res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../index.html')));
   res.end();

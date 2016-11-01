@@ -1,14 +1,13 @@
 import React from 'react'
 
-class Rating extends React.Component {
-  render() {
-    const ratingValue = ("" + this.props.rating).replace('.','')
-    return (
-      <div className={`rating rating-${ratingValue}`}>
-        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-      </div>
-    )
-  }
+/**
+ * Super simple CSS-based rating component
+ **/
+export default (props) => {
+  const ratingValue = ("" + props.rating).replace('.','')
+  return (
+    <div className={`rating rating-${ratingValue}`}>
+      <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+    </div>
+  )
 }
-
-export default Rating

@@ -11,6 +11,8 @@ export default class Header extends React.Component {
   }
 
   componentDidMount() {
+
+    // Initialize Semantic UI components
     $(this.refs.browseItem).popup({
       inline: true,
       hoverable: true,
@@ -23,6 +25,7 @@ export default class Header extends React.Component {
   }
 
   componentDidUpdate() {
+    // Re-Initialize Semantic UI components
     $('.dropdown', this.refs.element).dropdown()
   }
 
@@ -91,8 +94,8 @@ export default class Header extends React.Component {
           <div className="column books-navigation--section">
             <h4 className="ui header">Author Gender</h4>
             <div onClick={this.onLink} className="ui link list">
-              <a to="/all?author.gender=male" className="item">Male Authors</a>
-              <a to="/all?author.gender=female" className="item">Female Authors</a>
+              <a to="/all?author.gender=male" className="item">All male Authors</a>
+              <a to="/all?author.gender=female" className="item">All female Authors</a>
             </div>
           </div>
           <div className="column books-navigation--section">
@@ -134,8 +137,3 @@ export default class Header extends React.Component {
   }
 
 }
-
-Header.propTypes = {
-  category: React.PropTypes.string
-}
-

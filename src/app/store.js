@@ -18,6 +18,7 @@ export default function configureStore(history, initialState) {
   return store
 }
 
+// easy way to get to the store from anywhere in the code
 export function getStore() {
   return store;
 }

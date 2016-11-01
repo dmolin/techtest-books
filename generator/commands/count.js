@@ -5,7 +5,7 @@ import tingodb from 'tingodb'
 import Fiber from 'fibers'
 
 const Engine = tingodb()
-const db = new Engine.Db(path.join(__dirname, '/../../casumo-list/server/data'), {})
+const db = new Engine.Db(path.join(__dirname, '../../server/db'), {})
 
 function countCollection(coll) {
   const Coll = db.collection(coll)

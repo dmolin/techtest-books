@@ -24,24 +24,6 @@ const routes = [{
   indexRoute: { component: SearchBooksPage },
 }]
 
-/*
-const routes = [{
-  path: '/:category',
-  component: Layout,
-  indexRoute: { component: SearchBooksPage },
-  childRoutes: [
-    {
-      path: ':pageno',
-      getComponent: (location, cb) => {
-        require.ensure([], () => {
-          cb(null, SearchBooksPage)
-        })
-      }
-    }
-  ]
-}]
-*/
-
 export default [].concat(
   routes,
   redirectedRoutes()

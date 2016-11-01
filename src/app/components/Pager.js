@@ -1,5 +1,8 @@
 import React from 'react'
 
+/**
+ * Pagination component for Books
+ **/
 class Pager extends React.Component {
   constructor(...args) {
     super(...args)

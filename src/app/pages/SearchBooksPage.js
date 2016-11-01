@@ -7,6 +7,10 @@ import Pager from '../containers/Pager'
 import Header from '../containers/Header'
 import search from '../actions/books/thunk_search'
 
+/**
+ * Page classes are the ones directly attached to the router.
+ * I create them directly as component + wrapping container, since there's no reuse for their dubm component part
+ */
 class SearchBooksPage extends React.Component {
   componentDidMount() {
     this.props.search(this.props.searchTerm||'', this.props.params.category||'all', this.props.params.pageno||0, this.props.location.query)
