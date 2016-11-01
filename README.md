@@ -5,6 +5,8 @@ TechTest - A simple Books browsing/querying with 1 Million records
 
 ![ScreenShot](/README/casumo-books.jpg?raw=true)
 
+The Application is also LIVE [here](http://books.davidemolin.com)
+
 ### Technologies Used ###
 
 - React 15.4
@@ -26,10 +28,6 @@ TechTest - A simple Books browsing/querying with 1 Million records
 - Express server with open API (open the browser and just hit http://localhost:8080/api/category/all as an example)
 - basic responsive interface (I didn't spend too much on this)
 - definitely NOT production ready :p
-
-#### Note on the gender filter ####
-
-You'll notice that the gender filter is NOT available when browing the "all books" meta-category. This is due to a limitation in TingoDB. with a list of 1M books TingoDB gets horribly stuck when trying to filter on the author gender
 
 ### How to run this project ###
 
@@ -54,7 +52,11 @@ For this reason the project comes with a pre-generated database with only 10000 
 
 #### Wait! where are my 1 Million books then? ####
 
-No worries. If you want to enjoy browing through 1 Million books you can just generate a new DB! The project comes with a generator script.
+No worries. If you want to enjoy browing through 1 Million books you have two choices:
+
+1) head [here](http://books.davidemolin.com) and enjoy browsing through 1M fake books
+2) you can just generate a new DB! The project comes with a generator script.
+
 Just run it:
 
 ```
@@ -62,7 +64,7 @@ npm run generate <number of books to generate>
 ```
 
 If the number of books to generate is not provided the script will generate 1.000.000 books. 
-In that case...take a cup of coffee. the generation should take about 2-3 minutes (on a fairly recent machine).
+In that case...take a cup of coffee. the generation should take about 3-5 minutes (on a fairly recent machine).
 
 After that, you can start the server again; The indexing process at startup will now take much more time (the aforementioned 2-3 minutes) and then you'll be ready to fly
 
