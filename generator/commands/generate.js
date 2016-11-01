@@ -121,6 +121,7 @@ function generateBooksAndFiles(number) {
         gender: gender,
         image: genAuthorImage(gender)
       },
+      authorGender: gender,
       category: genCategory(),
       publishDate: genPublishDate(),
       rating: rand(5)+1

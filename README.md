@@ -27,6 +27,9 @@ TechTest - A simple Books browsing/querying with 1 Million records
 - basic responsive interface (I didn't spend too much on this)
 - definitely NOT production ready :p
 
+#### Note on the gender filter ####
+
+You'll notice that the gender filter is NOT available when browing the "all books" meta-category. This is due to a limitation in TingoDB. with a list of 1M books TingoDB gets horribly stuck when trying to filter on the author gender
 
 ### How to run this project ###
 

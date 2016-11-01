@@ -61,10 +61,8 @@ export default class Header extends React.Component {
     let selection = location.query['author.gender'] || 'none'
 
     const value = `author.gender=${selection}`
-    const isDisabled = category === 'all'
 
     return (
-      isDisabled ? null :
       <form className="ui form">
         <select className="ui dropdown" onChange={this.onFilterSelection} value={value}>
           <option value="">Filter content</option>
