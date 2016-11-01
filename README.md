@@ -54,8 +54,8 @@ For this reason the project comes with a pre-generated database with only 10000 
 
 No worries. If you want to enjoy browing through 1 Million books you have two choices:
 
-1) head [here](http://books.davidemolin.com) and enjoy browsing through 1M fake books
-2) you can just generate a new DB! The project comes with a generator script.
+1. head [here](http://books.davidemolin.com) and enjoy browsing through 1M fake books
+2. you can just generate a new DB! The project comes with a generator script.
 
 Just run it:
 
