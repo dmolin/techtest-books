@@ -1,6 +1,9 @@
 TechTest - A simple Books browsing/querying with 1 Million records
 ==========================================================================
 
+### Screenshots ###
+
+![ScreenShot](/README/casumo-books.jpg?raw=true)
 
 ### Technologies Used ###
 
@@ -46,6 +49,3 @@ npm run generate
 After that, you can start the server again; The indexing process will obviously take some time (the aforementioned 2-3 minutes) and then you'll be ready to fly
 
 
-### Screenshots ###
-
-![ScreenShot](/README/casumo-books.jpg?raw=true)
