@@ -1,24 +1,23 @@
 import api from '../../utils/booksApi'
 import searchResults from './searchResults'
-import searchStarted from './searchStarted'
+import freeSearchStarted from './freeSearchStarted'
 import searchStopped from './searchStopped'
 import flashMessage from '../flashMessage'
 import {fromSearchString} from '../../utils/query'
 
-export default function search(searchTerm, category, pageno=0, queryParams) {
+export default function freeSearch(searchTerm, category="all") {
   return (dispatch, getState) => {
-    //start the search action processing
-    dispatch(flashMessage())
-    dispatch(searchStarted(category, pageno))
-
     const location = getState().routing.locationBeforeTransitions
     const searchQuery = Object.assign({}, location.query, fromSearchString(searchTerm))
 
+    //start the search action processing
+    dispatch(flashMessage())
+    dispatch(freeSearchStarted(searchTerm, category))
+
     //call the server
-    api.findBooksByCategory(category, pageno, queryParams)
+    api.findBooksByCategory(category, 0, searchQuery)
       .then((response) => {
         if (response.data.error) {
-					console.log("err.:", response.data.reason)
           dispatch(searchStopped())
           dispatch(flashMessage("Error retrieving books. Please try again"))
           return

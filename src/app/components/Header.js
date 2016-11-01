@@ -1,5 +1,6 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
+import FreeSearch from '../containers/FreeSearch'
 
 export default class Header extends React.Component {
 
@@ -72,6 +73,41 @@ export default class Header extends React.Component {
     )
   }
 
+  renderCategoriesPopupMenu() {
+    return (
+      <div className="books-navigation ui fluid popup bottom left transition hidden">
+        <div className="ui four column relaxed equal height divided grid">
+          <div className="column books-navigation--section">
+            <h4 className="ui header">Categories</h4>
+            <div onClick={this.onLink} className="ui link list">
+              <a to="/all" className="item">All categories</a>
+              <a to="/fantasy" className="item">Fantasy</a>
+              <a to="/history" className="item">History</a>
+              <a to="/horror" className="item">Horror</a>
+              <a to="/mistery" className="item">Mistery</a>
+              <a to="/romance" className="item">Romance</a>
+              <a to="/scifi" className="item">SciFi</a>
+            </div>
+          </div>
+          <div className="column books-navigation--section">
+            <h4 className="ui header">Author Gender</h4>
+            <div onClick={this.onLink} className="ui link list">
+              <a to="/all?author.gender=male" className="item">Male Authors</a>
+              <a to="/all?author.gender=female" className="item">Female Authors</a>
+            </div>
+          </div>
+          <div className="column books-navigation--section">
+            <h4 className="ui header">Leisure and Self-Help</h4>
+            <div onClick={this.onLink} className="ui link list">
+              <a to="/travel" className="item">Travel</a>
+              <a to="/health" className="item">Health</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const {category, totalItems, theme} = this.props
     const classes = "header-content " + (theme ? "theme-" + theme : "")
@@ -85,41 +121,16 @@ export default class Header extends React.Component {
               <i className="dropdown icon"></i>
             </a>
 
-          </div>
-          <div className="ui fluid popup bottom left transition hidden">
-            <div className="ui four column relaxed equal height divided grid">
-              <div className="column">
-                <h4 className="ui header">Categories</h4>
-                <div onClick={this.onLink} className="ui link list">
-                  <a to="/all" className="item">All categories</a>
-                  <a to="/fantasy" className="item">Fantasy</a>
-                  <a to="/history" className="item">History</a>
-                  <a to="/horror" className="item">Horror</a>
-                  <a to="/mistery" className="item">Mistery</a>
-                  <a to="/romance" className="item">Romance</a>
-                  <a to="/scifi" className="item">SciFi</a>
-                </div>
-              </div>
-              <div className="column">
-                <h4 className="ui header">Author Gender</h4>
-                <div onClick={this.onLink} className="ui link list">
-                  <a to="/all?author.gender=male" className="item">Male Authors</a>
-                  <a to="/all?author.gender=female" className="item">Female Authors</a>
-                </div>
-              </div>
-              <div className="column">
-                <h4 className="ui header">Leisure and Self-Help</h4>
-                <div onClick={this.onLink} className="ui link list">
-                  <a to="/travel" className="item">Travel</a>
-                  <a to="/health" className="item">Health</a>
-                </div>
-              </div>
+            <div className="item grow books-search">
+              <FreeSearch />
             </div>
           </div>
+          <FreeSearch className="books-search__mobile fluid" />
+          {this.renderCategoriesPopupMenu()}
 
           <div className="books-header ui vertically padded secondary menu">
             <h2 className="books-header--title"><span className="capitalized">{category}</span> Books <span className="ui smaller">({totalItems} books)</span></h2>
-            <div className="right item">
+            <div className="books-header--filters right item">
               {this.renderFilters()}
             </div> 
           </div>
