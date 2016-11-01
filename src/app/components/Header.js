@@ -57,13 +57,14 @@ export default class Header extends React.Component {
   }
 
   renderFilters() {
-    const {location} = this.props
+    const {location, category} = this.props
     let selection = location.query['author.gender'] || 'none'
 
     const value = `author.gender=${selection}`
-    console.log("selection", value)
+    const isDisabled = category === 'all'
 
     return (
+      isDisabled ? null :
       <form className="ui form">
         <select className="ui dropdown" onChange={this.onFilterSelection} value={value}>
           <option value="">Filter content</option>
@@ -84,18 +85,16 @@ export default class Header extends React.Component {
             <div onClick={this.onLink} className="ui link list">
               <a to="/all" className="item">All categories</a>
               <a to="/fantasy" className="item">Fantasy</a>
-              <a to="/history" className="item">History</a>
-              <a to="/horror" className="item">Horror</a>
-              <a to="/mistery" className="item">Mistery</a>
               <a to="/romance" className="item">Romance</a>
+              <a to="/history" className="item">History</a>
               <a to="/scifi" className="item">SciFi</a>
             </div>
           </div>
           <div className="column books-navigation--section">
-            <h4 className="ui header">Author Gender</h4>
+            <h4 className="ui header">Spooky genres</h4>
             <div onClick={this.onLink} className="ui link list">
-              <a to="/all?author.gender=male" className="item">All male Authors</a>
-              <a to="/all?author.gender=female" className="item">All female Authors</a>
+              <a to="/mistery" className="item">Mistery</a>
+              <a to="/horror" className="item">Horror</a>
             </div>
           </div>
           <div className="column books-navigation--section">
