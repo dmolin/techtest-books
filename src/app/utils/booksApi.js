@@ -8,10 +8,23 @@ const api = axios.create({
   }
 })
 
+function buildQueryString(query) {
+  let qs = Object.keys(query).map(k=>("" + k + "=" + query[k])).join('&')
+  return qs.length ? `?${qs}` : qs
+}
+
+function pruneEmptyParams(query) {
+  return Object.keys(query).reduce((acc,t) => {
+    if (("" + query[t]).length > 0) {
+      acc[t] = query[t]
+    }
+    return acc
+  }, {})
+}
+
 const booksApi = {
   findBooksByCategory: (category, pageno=0, query={}) => {
-    let queryString = Object.keys(query).map(k=>("" + k + "=" + query[k])).join('&')
-    queryString = queryString.length ? `?${queryString}` : queryString
+    const queryString = buildQueryString(pruneEmptyParams(query))
 
     return api.get(`/category/${category}/${pageno}${queryString}`)
   }

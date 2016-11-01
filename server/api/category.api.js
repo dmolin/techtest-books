@@ -2,12 +2,31 @@ import ns from '../namespace'
 import Fiber from 'fibers'
 
 function sanitizeParams(params) {
-  const allowedValues = ['category', 'author.gender', 'author.name', 'nofilter']
+  const allowedParams = ['category', 'author.gender', 'author.name', 'nofilter', 'title']
   Object.keys(params).forEach(k => {
-    if (allowedValues.indexOf(k) === -1) {
+    if (allowedParams.indexOf(k) === -1) {
       throw new Error('A not allowed query parameter was provided [' + k + ']')
     }
   })
+}
+
+/**
+ * The query object is just a simple POJO containing key-value pairs.
+ * We need to identify the fields that represents a free text search and convert their value
+ * in a regex for the NoSQL store
+ */
+function mapFreeSearchFields(query) {
+  const textFields = ['author.name', 'title']
+
+  return Object.keys(query).reduce((acc, k) => {
+    let val = query[k]
+
+    if (textFields.indexOf(k) >= 0) {
+      val = { $regex: `.*${val}.*` }
+    }
+    acc[k] = val
+    return acc
+  }, {})
 }
 
 function countCollection(coll, query = {}) {
@@ -41,7 +60,9 @@ function findBooks(req, res) {
   sanitizeParams(req.query)
 
   // for the sake of simplicity, all the query params are used as "AND" where clauses
-  const whereClauses = Object.assign({}, req.query, (category !== 'all' ? {category} : {}))
+  const whereClauses = mapFreeSearchFields(Object.assign({}, req.query, (category !== 'all' ? {category} : {})))
+
+  console.log("query", whereClauses)
 
   const total = countCollection(ns.collections.Books, whereClauses)
   const totalPages = Math.ceil(total / pageSize)

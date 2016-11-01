@@ -9,7 +9,7 @@ import search from '../actions/books/thunk_search'
 
 class SearchBooksPage extends React.Component {
   componentDidMount() {
-    this.props.search(this.props.params.category||'all', this.props.params.pageno||0, this.props.location.query)
+    this.props.search(this.props.searchTerm||'', this.props.params.category||'all', this.props.params.pageno||0, this.props.location.query)
   }
 
   componentWillReceiveProps(next) {
@@ -18,7 +18,8 @@ class SearchBooksPage extends React.Component {
     const queryChanged = next.location.search !== this.props.location.search
 
     if (categoryChanged || pageChanged || queryChanged) {
-      this.props.search(next.params.category, next.params.pageno, next.location.query)
+      console.log("Firing new search", next.location)
+      this.props.search(next.searchTerm || this.props.searchTerm, next.params.category, next.params.pageno, next.location.query)
     }
   }
 
@@ -91,6 +92,7 @@ function mapStateToProps(state) {
   return {
     loading: state.books.loading,
     category: state.books.category,
+    searchTerm: state.books.searchTerm,
     result: state.books.result
   }
 }

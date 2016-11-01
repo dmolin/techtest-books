@@ -1,6 +1,6 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
-import FreeSearch from './FreeSearch'
+import FreeSearch from '../containers/FreeSearch'
 
 export default class Header extends React.Component {
 
