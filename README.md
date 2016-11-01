@@ -33,7 +33,7 @@ npm start
 
 This will run the unit tests and start the server.
 At startup, the server will access the embedded NoSQL datastore and index all the books. This might take some time (up to 3 minutes for a database with 1 Million books).
-For this reason the project comes with a pre-generated database with only 1000 records.
+For this reason the project comes with a pre-generated database with only 10000 records.
 
 
 #### Wait! where are my 1 Million books then? ####
