@@ -39,7 +39,7 @@ export default class Header extends React.Component {
     const value = {}
     let newQuery = Object.assign({}, this.props.location.query)
 
-    if (!choice || choice.length < 2) {
+    if (!choice || choice.length < 2 || choice[1] === 'none') {
       //reset filter
       newQuery = _.omit(newQuery, 'author.gender')
     } else {
@@ -55,7 +55,7 @@ export default class Header extends React.Component {
 
   renderFilters() {
     const {location} = this.props
-    let selection = location.query['author.gender'] || ''
+    let selection = location.query['author.gender'] || 'none'
 
     const value = `author.gender=${selection}`
     console.log("selection", value)
@@ -64,7 +64,7 @@ export default class Header extends React.Component {
       <form className="ui form">
         <select className="ui dropdown" onChange={this.onFilterSelection} value={value}>
           <option value="">Filter content</option>
-          <option value="nofilter" >No filter</option>
+          <option value="author.gender=none" >No filter</option>
           <option value="author.gender=male" >Only male authors</option>
           <option value="author.gender=female" >Only female authors</option>
         </select> 
