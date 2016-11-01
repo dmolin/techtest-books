@@ -1,7 +1,6 @@
 import {ACTION_BOOKS_SEARCH_RESULTS} from '../actions/books/searchResults'
 import {ACTION_BOOKS_SEARCH_STARTED} from '../actions/books/searchStarted'
 import {ACTION_BOOKS_SEARCH_STOPPED} from '../actions/books/searchStopped'
-import {ACTION_BOOKS_FREE_SEARCH_STARTED} from '../actions/books/freeSearchStarted'
 
 export const initialState = {
   loading: false,
@@ -29,9 +28,6 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {result:incrementalPayload}, {category: result.category, pageno: result.page, loading:false})
       break
 
-    case ACTION_BOOKS_FREE_SEARCH_STARTED:
-      return Object.assign({}, state, {category, searchTerm, loading:true})
-      break;
     default:
       return state
   }

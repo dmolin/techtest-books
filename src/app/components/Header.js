@@ -1,6 +1,5 @@
 import React from 'react'
 import {browserHistory, Link} from 'react-router'
-import FreeSearch from '../containers/FreeSearch'
 
 export default class Header extends React.Component {
 
@@ -120,12 +119,7 @@ export default class Header extends React.Component {
               Browse Books
               <i className="dropdown icon"></i>
             </a>
-
-            <div className="item grow books-search">
-              <FreeSearch />
-            </div>
           </div>
-          <FreeSearch className="books-search__mobile fluid" />
           {this.renderCategoriesPopupMenu()}
 
           <div className="books-header ui vertically padded secondary menu">
