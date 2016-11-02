@@ -3,7 +3,7 @@ TechTest - A simple Books browsing/querying with 1 Million records
 
 ### Screenshots ###
 
-![ScreenShot](/README/casumo-books.jpg?raw=true)
+![ScreenShot](/README/books.jpg?raw=true)
 
 The Application is also LIVE [here](http://books.davidemolin.com)
 
@@ -66,7 +66,11 @@ npm run generate <number of books to generate>
 If the number of books to generate is not provided the script will generate 1.000.000 books. 
 In that case...take a cup of coffee. the generation should take about 3-5 minutes (on a fairly recent machine).
 
+![ScreenShot](/README/generating.png?raw=true)
+
 After that, you can start the server again; The indexing process at startup will now take much more time (the aforementioned 2-3 minutes) and then you'll be ready to fly
+
+![ScreenShot](/README/generated.png?raw=true)
 
 
 ### Why a Backend? couldn't you make it with just an index.html and js code? ###
