@@ -27,6 +27,7 @@ The Application is also LIVE [here](http://books.davidemolin.com)
 - Books published on "odd" days of the week are highlighted with a special ribbon at the bottom left of the book card
 - Express server with open API (open the browser and just hit http://localhost:8080/api/category/all as an example)
 - basic responsive interface (I didn't spend too much on this)
+- Use of the cool [Semantic-ui](http://semantic-ui.com/)
 - definitely NOT production ready :p
 
 ### How to run this project ###
