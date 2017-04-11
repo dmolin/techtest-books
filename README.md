@@ -96,7 +96,7 @@ The only reason why I didn't commit the 1M records db into the project is plain 
 So, the project comes with a pre-generate 10.000 records DB. if you want to test with 1M, just generate one:
 
 ```
-npm generate
+npm run generate
 ```
 
 And then start the server again and have fun!
