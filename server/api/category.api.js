@@ -1,5 +1,6 @@
 import ns from '../namespace'
 import Fiber from 'fibers'
+import { runInFiber, findCollection } from '../lib/fibers'
 
 /**
  * This function checks that the query parameters contain only allowed values
@@ -7,13 +8,6 @@ import Fiber from 'fibers'
  **/
 function sanitizeParams(params) {
   const allowedParams = ['category', 'author.gender', 'author.name', 'nofilter', 'title']
-  /*
-  Object.keys(params).forEach(k => {
-    if (allowedParams.indexOf(k) === -1) {
-      throw new Error('A not allowed query parameter was provided [' + k + ']')
-    }
-  })
-  */
   return Object.keys(params).reduce((acc, k) => {
     if (allowedParams.indexOf(k) === -1) {
       //skip this parameter.
@@ -54,18 +48,6 @@ function countCollection(coll, query = {}) {
   return total
 }
 
-function findCollection(coll, query, start = 0, limit = 10000) {
-  let fiber = Fiber.current
-  let docs = [], error = null
-  coll.find(query).skip(start).limit(limit).toArray((err, result) => {
-    error = err
-    docs = result
-    fiber.run()
-  })
-  Fiber.yield()
-  return {error, docs}
-}
-
 function findBooks(req, res) {
   const pageSize = 100
   const category = req.params.category || 'all'
@@ -87,7 +69,7 @@ function findBooks(req, res) {
   const start = pageno * pageSize,
         end = start + pageSize
 
-  const books = findCollection(ns.collections.Books, whereClauses, start, pageSize)
+  const books = findCollection(ns.collections.Books, whereClauses, start, pageSize, {description: 0})
   if (books.error) {
     res.json({error: true, reason: books.error})
     return
@@ -101,22 +83,6 @@ function findBooks(req, res) {
     totalItems: total,
     totalPages: Math.ceil(total / pageSize),
     books:books.docs
-  })
-}
-
-/**
- * This function will ensure that our request handler run inside a Node Fiber
- * Say goodbye to callback hell!
- **/
-function runInFiber(handler) {
-  return ((req, res) => {
-    Fiber(() => {
-      try {
-        handler(req, res)
-      } catch (err) {
-        res.json({error:true, reason: err.message})
-      }
-    }).run()
   })
 }
 

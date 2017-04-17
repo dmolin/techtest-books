@@ -13,11 +13,18 @@ import search from '../actions/books/thunk_search'
  * I create them directly as component + wrapping container, since there's no reuse for their dubm component part
  */
 class SearchBooksPage extends React.Component {
-  componentDidMount() {
-    this.props.search(this.props.searchTerm||'', this.props.params.category||'all', this.props.params.pageno||0, this.props.location.query)
+  constructor (...args) {
+    super(...args)
+
+    this.onBookSelected = this.onBookSelected.bind(this)
   }
 
-  componentWillReceiveProps(next) {
+  componentDidMount () {
+    const { search, searchTerm, params, location } = this.props;
+    search(searchTerm||'', params.category||'all', params.pageno||0, location.query)
+  }
+
+  componentWillReceiveProps (next) {
     const categoryChanged = next.params.category !== this.props.params.category
     const pageChanged = next.params.pageno !== this.props.params.pageno
     const queryChanged = next.location.search !== this.props.location.search
@@ -28,7 +35,11 @@ class SearchBooksPage extends React.Component {
     }
   }
 
-  renderPager() {
+  onBookSelected (book) {
+    console.log('Book selected', book)
+  }
+
+  renderPager () {
     return (
       <div className="ui container secondary menu">
         <Pager className="right item"/>
@@ -36,14 +47,14 @@ class SearchBooksPage extends React.Component {
     )
   }
 
-  renderBooksOrMessage() {
-    const {category, loading, result = {}} = this.props
+  renderBooksOrMessage () {
+    const { loading, result = {} } = this.props
 
     if (result.books && result.books.length) {
       return (
         <div className="books-results">
           {this.renderPager()}
-          <Books books={result.books} />
+          <Books books={result.books} onSelected={this.onBookSelected} />
           <div className="ui divider" />
           {this.renderPager()}
         </div>
@@ -66,8 +77,8 @@ class SearchBooksPage extends React.Component {
     )
   }
 
-  render() {
-    const {category, loading, result = {}} = this.props
+  render () {
+    const { loading } = this.props
 
     return (
       <div className={`search-books loading-${loading}`}>
@@ -89,7 +100,9 @@ SearchBooksPage.propTypes = {
   loading: bool,
   category: string,
   searchTerm: string,
-  result: object
+  result: object,
+  params: object,
+  location: object
 }
 
 function mapStateToProps(state) {

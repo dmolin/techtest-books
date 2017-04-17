@@ -1,10 +1,25 @@
 import moment from 'moment'
+import _ from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Rating from '../Rating'
 
 class Book extends React.Component {
-  renderSpecial() {
+  constructor (...args) {
+    super(...args)
+
+    this.onSelected = this.onSelected.bind(this)
+  }
+
+  onSelected () {
+    const { onSelected } = this.props
+
+    if (_.isFunction(onSelected)) {
+      onSelected()
+    }
+  }
+
+  renderSpecial () {
     const {category, title, cover, rating, author, publishDate} = this.props
 
     switch(category) {
@@ -19,7 +34,7 @@ class Book extends React.Component {
     }
   }
 
-  renderPopular() {
+  renderPopular () {
     const {category, title, cover, rating, author, publishDate} = this.props
 
     if (rating > 4) {
@@ -29,11 +44,11 @@ class Book extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const {category, title, cover, rating, author, publishDate} = this.props
 
     return (
-      <div className="ui card book" >
+      <div className="ui card book" onClick={this.onSelected}>
         {this.renderPopular()}
 	<div className="content book--header">
 	  <div className="right floated meta">
@@ -63,6 +78,7 @@ class Book extends React.Component {
 }
 
 Book.propTypes = {
+  isbn: PropTypes.string,
   author: PropTypes.shape({
     name: PropTypes.string,
     image: PropTypes.string

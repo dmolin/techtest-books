@@ -87,7 +87,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build",
-    "generate": "rm server/db/books && babel-node generator generate",
+    "generate": "babel-node generator generate",
     "build": "npm run test && DEV=true babel-node --max_old_space_size=4096 ./server/server.js",
     "test": "mocha --compilers js:babel-core/register --require src/test/setup.js --recursive ./src/test",
     "test:watch": "npm run test -- --watch"
