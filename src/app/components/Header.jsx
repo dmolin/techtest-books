@@ -1,17 +1,16 @@
 import React from 'react'
-import {browserHistory, Link} from 'react-router'
+import _ from 'lodash'
+import PropTypes from 'prop-types'
 
 export default class Header extends React.Component {
-
-  constructor(...args) {
+  constructor (...args) {
     super(...args)
 
     this.onLink = this.onLink.bind(this)
     this.onFilterSelection = this.onFilterSelection.bind(this)
   }
 
-  componentDidMount() {
-
+  componentDidMount () {
     // Initialize Semantic UI components
     $(this.refs.browseItem).popup({
       inline: true,
@@ -20,22 +19,21 @@ export default class Header extends React.Component {
       delay: { show: 200, hide: 400 },
       popup: $('.ui.popup')
     })
-
     $('.dropdown', this.refs.element).dropdown()
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     // Re-Initialize Semantic UI components
     $('.dropdown', this.refs.element).dropdown()
   }
 
-  onLink(evt) {
+  onLink (evt) {
     evt.preventDefault()
     $(this.refs.browseItem).popup('toggle')
     browserHistory.push($(evt.target).attr('to'))
   }
 
-  onFilterSelection(evt) {
+  onFilterSelection (evt) {
     evt.preventDefault()
     //turn selection into key-value pair
     const choice = $(evt.target).val().split('=')
@@ -56,8 +54,8 @@ export default class Header extends React.Component {
     })
   }
 
-  renderFilters() {
-    const {location, category} = this.props
+  renderFilters () {
+    const { location } = this.props
     let selection = location.query['author.gender'] || 'none'
 
     const value = `author.gender=${selection}`
@@ -69,12 +67,12 @@ export default class Header extends React.Component {
           <option value="author.gender=none" >No filter</option>
           <option value="author.gender=male" >Only male authors</option>
           <option value="author.gender=female" >Only female authors</option>
-        </select> 
+        </select>
       </form>
     )
   }
 
-  renderCategoriesPopupMenu() {
+  renderCategoriesPopupMenu () {
     return (
       <div className="books-navigation ui fluid popup bottom left transition hidden">
         <div className="ui four column relaxed equal height divided grid">
@@ -107,10 +105,9 @@ export default class Header extends React.Component {
     )
   }
 
-  render() {
-    const {category, totalItems, theme} = this.props
-    const classes = "header-content " + (theme ? "theme-" + theme : "")
-    
+  render () {
+    const { category, totalItems } = this.props
+
     return (
       <div ref="element" className="books--header">
         <div className="books--header-bg ui container">
@@ -126,11 +123,20 @@ export default class Header extends React.Component {
             <h2 className="books-header--title"><span className="capitalized">{category}</span> Books <span className="ui smaller">({totalItems} books)</span></h2>
             <div className="books-header--filters right item">
               {this.renderFilters()}
-            </div> 
+            </div>
           </div>
         </div>
       </div>
     )
   }
-
 }
+
+const { number, object, shape, string } = PropTypes;
+Header.propTypes = {
+  category: string,
+  totalItems: number,
+  location: shape({
+    query: object
+  }),
+  router: object
+};

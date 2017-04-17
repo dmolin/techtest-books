@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Book from './Book'
 
 class Books extends React.Component {
   constructor(props) {
     super(props)
   }
-  
+
   render() {
     const {books} = this.props
 
@@ -17,6 +18,10 @@ class Books extends React.Component {
       </div>
     )
   }
+}
+
+Books.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default Books

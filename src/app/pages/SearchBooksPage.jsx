@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {Books} from '../components/Books'
@@ -28,19 +29,9 @@ class SearchBooksPage extends React.Component {
   }
 
   renderPager() {
-    const {result = {}} = this.props
-
     return (
       <div className="ui container secondary menu">
         <Pager className="right item"/>
-      </div>
-    ) 
-  }
-
-  renderSpinner() {
-    return (
-      <div className="backdrop">
-        <Spinner />
       </div>
     )
   }
@@ -55,7 +46,7 @@ class SearchBooksPage extends React.Component {
           <Books books={result.books} />
           <div className="ui divider" />
           {this.renderPager()}
-        </div>  
+        </div>
       )
     }
 
@@ -70,7 +61,7 @@ class SearchBooksPage extends React.Component {
     // no books and not loading. we didn't find a book :(
     return (
       <div className="ui container books--noresult">
-        <span className="ui icon message"><i className="ban icon"></i>Let's be honest, we can't have them all.. Try with another category</span> 
+        <span className="ui icon message"><i className="ban icon"></i>Let's be honest, we can't have them all.. Try with another category</span>
       </div>
     )
   }
@@ -83,13 +74,22 @@ class SearchBooksPage extends React.Component {
         <Header />
         <div className="books-result-wrapper">
 
-        {loading ? this.renderSpinner() : null}
+        {loading ? <Spinner backdrop /> : null}
 
         {this.renderBooksOrMessage()}
         </div>
       </div>
     )
   }
+}
+
+const { bool, func, object, string } = PropTypes
+SearchBooksPage.propTypes = {
+  search: func,
+  loading: bool,
+  category: string,
+  searchTerm: string,
+  result: object
 }
 
 function mapStateToProps(state) {

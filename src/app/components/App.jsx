@@ -1,11 +1,10 @@
-const React = require('react')
-const { Router, browserHistory } = require('react-router')
-const { Provider } = require('react-redux')
+import React from 'react'
+import { Router, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import { syncHistoryWithStore } from 'react-router-redux'
 
 import routes from '../routes'
-
 import configureStore from '../store'
-import {syncHistoryWithStore} from 'react-router-redux'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
@@ -20,6 +19,5 @@ class  App extends React.Component {
 }
 
 App.Routes = routes
-App.History = browserHistory
 
 export default App

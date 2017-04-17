@@ -1,6 +1,6 @@
 import Layout from './components/layouts/Layout'
-
 import SearchBooksPage from './pages/SearchBooksPage'
+import BookPage from './pages/BookPage'
 
 function redirect (from, to) {
   return {
@@ -19,9 +19,13 @@ function redirectedRoutes() {
 }
 
 const routes = [{
+  path: '/books/:id',
+  component: Layout,
+  indexRoute: { component: BookPage }
+}, {
   path: '/:category(/:pageno)',
   component: Layout,
-  indexRoute: { component: SearchBooksPage },
+  indexRoute: { component: SearchBooksPage }
 }]
 
 export default [].concat(

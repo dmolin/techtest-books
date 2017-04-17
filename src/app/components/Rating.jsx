@@ -1,9 +1,10 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 /**
  * Super simple CSS-based rating component
  **/
-export default (props) => {
+const Rating = (props) => {
   const ratingValue = ("" + props.rating).replace('.','')
   return (
     <div className={`rating rating-${ratingValue}`}>
@@ -11,3 +12,9 @@ export default (props) => {
     </div>
   )
 }
+
+Rating.propTypes = {
+  rating: PropTypes.number
+}
+
+export default Rating

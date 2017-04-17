@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 /**
  * Pagination component for Books
@@ -12,7 +13,7 @@ class Pager extends React.Component {
 
   onPageClick(evt) {
     const {location, category, page, pageSize, found, totalItems, totalPages, router} = this.props
-    const choiceMatch = evt.target.className.match(/pager--([^\s]+)/) 
+    const choiceMatch = evt.target.className.match(/pager--([^\s]+)/)
     const choice = choiceMatch ? choiceMatch[1] || '' : 0
     let requested = 0
 
@@ -36,7 +37,7 @@ class Pager extends React.Component {
 
     router.push({
       pathname: `/${category}/${requested}`,
-      query: location.query 
+      query: location.query
     })
   }
 
@@ -67,13 +68,13 @@ class Pager extends React.Component {
   renderRange() {
     const {page, pageSize, found, totalItems, totalPages} = this.props
     const fromItem = pageSize * page + 1
-    const toItem = fromItem + Math.min(pageSize, found) - 1 
+    const toItem = fromItem + Math.min(pageSize, found) - 1
 
     return (<span className="ui basic medium label pager--range">{fromItem}-{toItem}</span>)
   }
 
   render() {
-    const {page, pageSize, found, totalItems, totalPages, className=''} = this.props
+    const { className='' } = this.props
 
     return (
       <div onClick={this.onPageClick} className={`pager ${className}`}>
@@ -91,6 +92,16 @@ class Pager extends React.Component {
       </div>
     )
   }
+}
+
+Pager.propTypes = {
+  className: PropTypes.string,
+  found: PropTypes.number,
+  page: PropTypes.number,
+  pageSize: PropTypes.number,
+  totalItems: PropTypes.number,
+  totalPages: PropTypes.number,
+  router: PropTypes.object
 }
 
 export default Pager

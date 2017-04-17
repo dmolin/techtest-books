@@ -1,3 +1,11 @@
+.loading-spinner-wrapper {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
 .loading-spinner {
   width: 40px;
   height: 40px;

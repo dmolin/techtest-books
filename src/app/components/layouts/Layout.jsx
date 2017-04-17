@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../containers/Header'
+import PropTypes from 'prop-types'
 import FlashMessage from '../../containers/FlashMessage'
 
 const Layout = (props) => {
@@ -14,7 +14,7 @@ const Layout = (props) => {
   )
 }
 
-const { element, object } = React.PropTypes
+const { element, object } = PropTypes
 
 Layout.propTypes = {
   location: object,
