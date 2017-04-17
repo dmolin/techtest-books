@@ -11,9 +11,9 @@ The Application is also LIVE [here](http://books.davidemolin.com)
 
 - React 15.4
 - Redux
-- BabelJS 
+- BabelJS
 - Webpack
-- Express (I HAD to have a backend)
+- Express
 - Node Fibers
 - TingoDB (embedded NoSQL datastore)
 - Mocha/Chai/Sinon (the usual suspects) for a glimple of testing
@@ -29,6 +29,13 @@ The Application is also LIVE [here](http://books.davidemolin.com)
 - basic responsive interface (I didn't spend too much on this)
 - Use of the cool [Semantic-ui](http://semantic-ui.com/)
 - definitely NOT production ready :p
+
+### Things still in the works and other stuff in the queue ###
+
+- Book detail page
+- Adding/displaying book reviews
+- Wish list
+- Purchase flow and shopping cart
 
 ### How to run this project ###
 
@@ -64,7 +71,7 @@ Just run it:
 npm run generate <number of books to generate>
 ```
 
-If the number of books to generate is not provided the script will generate 1.000.000 books. 
+If the number of books to generate is not provided the script will generate 1.000.000 books.
 In that case...take a cup of coffee. the generation should take about 3-5 minutes (on a fairly recent machine).
 
 After that, you can start the server again; The indexing process at startup will now take much more time (the aforementioned 2-3 minutes) and then you'll be ready to fly
@@ -82,8 +89,8 @@ Moreover, try to filter a million book list in memory in the browser... I tried 
 
 In general, a paginated list (or a 'load more' one) is a much more realistic scenario and it forms a much more satisfying user experience.
 
-So, a backend is necessary to query, filter and paginate the books. 
-I initially tried with a simple JSON file, loaded in memory in the server process and served to clients. It didn't work out quite well, since each pagination was requiring more than 30 seconds to process.. 
+So, a backend is necessary to query, filter and paginate the books.
+I initially tried with a simple JSON file, loaded in memory in the server process and served to clients. It didn't work out quite well, since each pagination was requiring more than 30 seconds to process..
 I then tried optimizing, creating 1 master json file (1M records) PLUS "n" other json files, one for eact category type, to avoid filtering out the main list when requesting a category.
 It's ok and quite performant but everything broke when I increased the size of the master JSON file (when adding author/cover images). So I decided to refactor and move everything to a NoSQL database.
 
