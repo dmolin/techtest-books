@@ -8,3 +8,5 @@ coverage
 npm-debug.log
 dist/
 generator/db
+\#*\#
+.\#*

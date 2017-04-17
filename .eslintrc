@@ -1,0 +1,39 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+
+  "plugins": [
+    "react"
+  ],
+
+  "parserOptions": {
+    "sourceType": "module"
+  },
+
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "classes": true,
+    "templateStrings": true,                   // enable template strings
+    "objectLiteralComputedProperties": true,
+    "objectLiteralShortandMethods": true,
+    "spread": true,
+    "destructuring": true,
+    "unicodeCodePointEscapes": false,           // enable code point escapes
+    "jsx": true                                 // enable JSX
+  },
+
+  "rules": {
+    "quotes": ["error", "single", "avoid-escape"],
+    "semi": 0
+  },
+
+  "globals": {
+    "expect": true
+  }
+}
