@@ -64,7 +64,7 @@
     "fibers": "^1.0.15",
     "history": "^4.6.1",
     "http-proxy": "^1.13.2",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "moment": "^2.15.2",
     "node-ensure": "0.0.0",
     "prop-types": "^15.5.8",
